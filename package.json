@@ -1,14 +1,14 @@
 {
-  "name": "threejs-cannonjs-demo",
+  "name": "tower-wave",
   "version": "1.0.0",
-  "description": "ThreeJs + CannonJs Demo",
+  "description": "Tower Wave",
   "main": "src/index.js",
   "keywords": [
     "ES6"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iondrimba/threejs-cannonjs-demo.git"
+    "url": "git+https://github.com/iondrimba/tower-wave.git"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
