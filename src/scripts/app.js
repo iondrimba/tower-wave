@@ -5,7 +5,7 @@ export default class App {
     this.ambientLightColor = 0xffffff;
     this.backgroundColor = '#ffffff';
     this.spotLightColor = 0xffffff;
-    this.gridSize = 25;
+    this.gridSize = 14;
     this.col = this.gridSize
     this.row = this.gridSize;
     this.shapes = [];
@@ -15,7 +15,7 @@ export default class App {
     this.velocity = .05;
     this.amplitude = -1;
     this.frequency = 0;
-    this.waveLength = 150;
+    this.waveLength = 300;
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 1000);
@@ -35,19 +35,7 @@ export default class App {
 
     this.addCenterTower();
 
-    const props = {
-      steps: 1,
-      depth: 1,
-      bevelEnabled: false
-    };
-
-    const materials = [this.topMaterial, this.insideMaterial];
-
-    for (let index = 1; index < 4; index++) {
-      this.shapes.push(this.createSet(props, materials, index, index > 1 ? index - 1 : 0));
-
-      this.scene.add(this.shapes[index]);
-    }
+    this.addTowers();
 
     this.addGUIControls();
 
@@ -84,6 +72,22 @@ export default class App {
 
     this.shapes.push(pivot);
     this.scene.add(pivot);
+  }
+
+  addTowers() {
+    const props = {
+      steps: 1,
+      depth: 1,
+      bevelEnabled: false
+    };
+
+    const materials = [this.topMaterial, this.insideMaterial];
+
+    for (let index = 1; index < 4; index++) {
+      this.shapes.push(this.createSet(props, materials, index, index > 1 ? index - 1 : 0));
+
+      this.scene.add(this.shapes[index]);
+    }
   }
 
   hexToRgbTreeJs(hex) {
@@ -216,7 +220,7 @@ export default class App {
       const offset = this.map(distance, 0, this.waveLength, -100, 100);
       const angle = this.angle + offset;
 
-      this.shapes[i].scale.y = this.map(Math.sin(angle), -1, -this.amplitude, 0, 10 / this.shapes[i].size * .5);
+      this.shapes[i].scale.y = this.map(Math.sin(angle), -1, -this.amplitude, 0, 20 / this.shapes[i].size * .3);
     }
 
     this.angle -= this.velocity;
@@ -231,12 +235,12 @@ export default class App {
   }
 
   addGrid() {
-    const size = 10;
-    const divisions = 10;
+    const size = this.gridSize;
+    const divisions = this.gridSize;
     const gridHelper = new THREE.GridHelper(size, divisions);
 
     gridHelper.position.set(0, 0, 0);
-    gridHelper.material.opacity = .5;
+    gridHelper.material.opacity = .3;
     gridHelper.material.transparent = true;
 
     this.scene.add(gridHelper);
